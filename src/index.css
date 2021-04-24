@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.scrollleft-hidden::-webkit-scrollbar{
+	display: none;
+}
+.scrollleft-hidden{
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.scrollleft-hidden > div{
+	width: 2100px;
+}
+.item-music:hover .play-icon{
+	display: block;
+}
+
+progress::-webkit-progress-value{
+	background-color: white;
+}
+
+@media screen and (max-width: 639px){
+	#container, #navbar{
+		margin-left: 0 !important;
+	}
+	#navbar > .float-right{
+		margin-right: 0 !important;
+	}
+}
+@media screen and (min-width: 640px){
+	#sidebar{
+		margin-left: 0 !important;
+	}
+	#container, #navbar{
+		margin-left: 240 !important;
+	}
+}
