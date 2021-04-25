@@ -5,6 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom"
+import { Provider } from 'react-redux'
 import $ from 'jquery'
 import {
   HomeIcon, SearchIcon, CollectionIcon, PlusIcon, HeartIcon, ArrowLeftIcon, ArrowRightIcon, MenuIcon,
@@ -27,9 +28,6 @@ class Template extends React.Component{
     document.body.classList.add('bg-gray-800')
     $('#sidebar').css({width: 240})
     $('#container').css({marginLeft: 240})
-    $(window).on('scroll', e => {
-      
-    })
   }
   menu(e)
   {
@@ -51,7 +49,7 @@ class Template extends React.Component{
       <Router>
         <nav id="navbar" className="bg-black w-full top-0 left-0 fixed pr-5 pl-5 pt-2 pb-2 z-50" style={{marginLeft: 240}}>
           <div className="flex float-left">
-            <a href="#" onClick={this.menu} className="mr-1 p-2 text-white font-bold block sm:hidden"><MenuIcon className="h-6" /></a>
+            <a onClick={this.menu} className="mr-1 p-2 text-white font-bold block sm:hidden cursor-pointer"><MenuIcon className="h-6" /></a>
             <Link to="/" className="mr-1 p-2 cursor-not-allowed text-white text-opacity-50 font-bold"><ArrowLeftIcon className="h-6" /></Link>
             <Link to="/" className="mr-1 p-2 cursor-not-allowed text-white text-opacity-50 font-bold"><ArrowRightIcon className="h-6" /></Link>
           </div>
@@ -69,24 +67,24 @@ class Template extends React.Component{
               </Link>
             </li>
             <li className="flex">
-              <a href="#" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
+              <Link to="/" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
                 <SearchIcon className="h-6 float-left" /> <span className="ml-3">Search</span>
-              </a>
+              </Link>
             </li>
             <li className="flex">
-              <a href="#" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
+              <Link to="/" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
                 <CollectionIcon className="h-6 float-left" /> <span className="ml-3">My Collection</span>
-              </a>
+              </Link>
             </li>
             <li className="flex mt-5">
-              <a href="#" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
+              <Link to="/" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
                 <PlusIcon className="h-6 float-left" /> <span className="ml-3">Create Playlist</span>
-              </a>
+              </Link>
             </li>
             <li className="flex">
-              <a href="#" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
+              <Link to="/" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
                 <HeartIcon className="h-6 float-left" /> <span className="ml-3">Favorite Songs</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </section>
@@ -94,7 +92,7 @@ class Template extends React.Component{
           <div className="flex">
             <div className="sm:w-1/3"></div>
             <div className="sm:w-1/3 mx-auto block mb-5 text-center">
-              <div className="justify-center flex">{/*style={{marginLeft: '36.5%'}}*/}
+              <div className="justify-center flex">
                 <a href="">
                   <span><RewindIcon className="h-7 ml-2" /></span>
                 </a>

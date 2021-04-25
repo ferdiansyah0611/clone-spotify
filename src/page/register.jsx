@@ -6,7 +6,7 @@ import {
 class Register extends React.Component{
 	render()
 	{
-		return(<div>register</div>)
+		return(<Link to="/">back</Link>)
 	}
 }
 
