@@ -36,3 +36,43 @@ progress::-webkit-progress-value{
 		margin-left: 240 !important;
 	}
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .music-spin {
+    animation: music-spin infinite 3s linear;
+  }
+}
+
+@keyframes music-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+input[type="range"] {
+	-webkit-appearance: none;
+	outline: none;
+	transition: opacity .2s;
+	border-radius: 20px;
+	height: 10px;
+	width: 100%;
+	background: white;
+}
+input[type="range"]::-webkit-slider-thumb{
+	-webkit-appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	cursor: pointer;
+	background: #34D399;
+}
+input[type="range"]::-moz-slidngeer-thumb{
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	cursor: pointer;
+	background: #34D399;
+}
