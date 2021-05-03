@@ -255,8 +255,7 @@ class Template extends React.Component {
         document.body.classList.remove('overflow-hidden')
         $('#sidebar').css({ width: 240 , marginLeft: '-100%'})
         $('#container').css({ marginLeft: 240 })
-        await new Spotify(clientID, secretID).getToken()
-        window.$ = $
+        var getToken = await new Spotify(clientID, secretID).getTokenHard()
         document.body.addEventListener('contextmenu', e => {e.preventDefault()})
     }
     componentWillUnmount(){
