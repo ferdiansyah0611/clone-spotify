@@ -59,7 +59,7 @@ class ShowPlaylist extends React.Component {
 						<Link className="hover:underline" to="/">{this.state.detail.name}</Link>
 					</h3>
 					<p className="font-light text-sm sm:text-base text-red-400 d-block">{this.state.detail.followers.total ? this.state.detail.followers.total + 'Followers': ''} </p>
-					<p className="font-light text-sm sm:text-base text-opacity-70 text-gray-200 d-block">{this.state.detail.description}</p>
+					<p className="font-light text-sm sm:text-base text-opacity-70 text-gray-200 d-block" dangerouslySetInnerHTML={{__html: this.state.detail.description}}/>
 				</section>
 				<section className="mt-2 w-full">
 					<h3 className="font-bold text-2xl">
