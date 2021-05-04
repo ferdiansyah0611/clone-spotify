@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+#sidebar{
+	width: 240px;
+	margin-left: -100%;
+}
+
 .scrollleft-hidden::-webkit-scrollbar{
 	display: none;
 }

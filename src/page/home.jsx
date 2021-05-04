@@ -75,13 +75,13 @@ class Home extends React.Component{
 							{
 								this.state.newRelease.albums.items.length > 1 ? this.state.newRelease.albums.items.map((data, key) => {
 									return(
-										<div key={key} className="transition duration-700 w-44 float-left hover:bg-gray-700 hover:bg-opacity-50 cursor-pointer m-1 sm:m-4 p-3 item-music">
+										<Link to={"/browse/albums/" + data.id} key={key} className="transition duration-700 w-44 float-left hover:bg-gray-700 hover:bg-opacity-50 cursor-pointer m-1 sm:m-4 p-3 item-music">
 											<img src={data.images[1].url} className="w-full rounded-sm" alt="" />
 											<span onClick={this.playMusic} data-key={key} data-img={data.images[1].url} data-url={data.preview_url} data-name={data.name} className="rounded-sm float-right absolute -mt-14 hidden p-2 play-icon cursor-pointer">
 												<PlayIcon data-url={data.preview_url} data-key={key} data-img={data.images[1].url} data-name={data.name} className="h-10" />
 											</span>
 											<h5 className="font-bold text-sm mt-1">{data.name}</h5>
-										</div>
+										</Link>
 									)
 								})
 								: false

@@ -20,9 +20,7 @@ import {
     FastForwardIcon,
     PlayIcon,
     PauseIcon,
-    DotsVerticalIcon,
     DotsHorizontalIcon,
-    ChevronDownIcon
 } from '@heroicons/react/solid'
 
 import Home from './page/home.jsx'
@@ -87,7 +85,9 @@ class MenuRightAuth extends React.Component{
     return(
       <>
         <span data-status={this.state.open} onClick={this.action} className={this.props.menuClass}>
-          <DotsVerticalIcon className="h-6" />
+          <svg data-status={this.state.open} xmlns="http://www.w3.org/2000/svg" className="h-6" viewBox="0 0 20 20" fill="currentColor">
+            <path data-status={this.state.open} d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+          </svg>
         </span>
         <div onClick={this.action} className={this.state.classClosed}></div>
         <div className="body-right-menu z-50 font-bold fixed top-0 right-0 bg-black transition-all duration-700 ease-in-out" style={this.state.styleBody}>
@@ -253,9 +253,9 @@ class Template extends React.Component {
         document.title = 'Clone Spotify'
         document.body.classList.add('bg-gray-800', 'overflow-auto')
         document.body.classList.remove('overflow-hidden')
-        $('#sidebar').css({ width: 240 , marginLeft: '-100%'})
+        /*$('#sidebar').css({ width: 240 , marginLeft: '-100%'})*/
         $('#container').css({ marginLeft: 240 })
-        var getToken = await new Spotify(clientID, secretID).getTokenHard()
+        await new Spotify(clientID, secretID).getTokenHard()
         document.body.addEventListener('contextmenu', e => {e.preventDefault()})
     }
     componentWillUnmount(){
@@ -397,9 +397,15 @@ class Template extends React.Component {
         <DefaultContext.Provider value={this.state}>
           <nav id="navbar" className="bg-black w-full top-0 left-0 fixed pr-5 pl-5 pt-2 pb-2 z-50 shadow-2xl" style={{marginLeft: 240}}>
             <div className="flex float-left">
-              <span onClick={this.menu} className="mr-1 p-2 text-white font-bold block sm:hidden cursor-pointer"><MenuIcon className="h-6" /></span>
-              <Link to="/" className="mr-1 hidden sm:block p-2 cursor-not-allowed text-white text-opacity-50 font-bold"><ArrowLeftIcon className="h-6" /></Link>
-              <Link to="/" className="mr-1 hidden sm:block p-2 cursor-not-allowed text-white text-opacity-50 font-bold"><ArrowRightIcon className="h-6" /></Link>
+              <span onClick={this.menu} className="mr-1 p-2 text-white font-bold block sm:hidden cursor-pointer">
+                <MenuIcon className="h-6" />
+              </span>
+              <Link to="/" className="mr-1 hidden sm:block p-2 cursor-not-allowed text-white text-opacity-50 font-bold">
+                <ArrowLeftIcon className="h-6" />
+              </Link>
+              <Link to="/" className="mr-1 hidden sm:block p-2 cursor-not-allowed text-white text-opacity-50 font-bold">
+                <ArrowRightIcon className="h-6" />
+              </Link>
               {
                 this.state.search ? 
                 <form onSubmit={this.submitSearch}>
@@ -429,7 +435,7 @@ class Template extends React.Component {
             </div>
           </nav>
           <section id="sidebar" className="open bg-black h-full fixed left-0 top-0 mt-14 sm:mt-0 text-white p-3 sm:block transition-all duration-700 z-50 shadow-2xl">
-            <h1 className="text-center font-bold pb-5 pt-5">Clone Spotify <br/><a href="https://github.com/ferdiansyah0611" target="_blank" className="underline">by Ferdiansyah</a></h1>
+            <h1 className="text-center font-bold pb-5 pt-5">Clone Spotify <br/><a href="https://github.com/ferdiansyah0611" target="_blank" rel="noreferrer" className="underline">by Ferdiansyah</a></h1>
             <ul>
               <li className="flex">
                 <NavLink exact to="/" activeClassName="font-bold text-opacity-100 bg-gray-600" className="text-white font-bold text-opacity-50 hover:text-opacity-100 w-full p-2 rounded-md">
@@ -459,7 +465,9 @@ class Template extends React.Component {
             </ul>
           </section>
           <section id="player" className="bg-gray-700 fixed bottom-0 left-0 w-full z-30 sm:z-50 text-white shadow-2xl">
-            <ChevronDownIcon className="h-12 hidden cursor-pointer" id="close-queue" onClick={this.showMusic} data-action="close" />
+            <svg id="close-queue" onClick={this.showMusic} data-action="close" xmlns="http://www.w3.org/2000/svg" className="h-12 hidden cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+              <path data-action="close" fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+            </svg>
             <ul className="hidden w-full bg-black overflow-auto pt-28 pb-10" style={{height: '86.8vh'}} id="queue">
             {
               this.state.listMusic.map((data, key) => {
@@ -516,7 +524,9 @@ class Template extends React.Component {
               </div>
               <div className="sm:w-1/3">
                 <span onClick={this.actionmusic} data-action="open" className="action-music bg-green-400 fixed right-0 bottom-0 cursor-pointer p-3 rounded-full mb-16 mr-3 z-40">
-                  <DotsVerticalIcon data-action="open" className="h-7" />
+                  <svg data-action="open" xmlns="http://www.w3.org/2000/svg" className="h-7" viewBox="0 0 20 20" fill="currentColor">
+                    <path data-action="open" d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                  </svg>
                 </span>
                 <div className="menumusic-close" onClick={this.actionmusic} data-action="close"></div>
                 <div className="body text-white bg-gray-600 fixed right-0 bottom-0 mb-32 hidden z-50" id="actionmusic">

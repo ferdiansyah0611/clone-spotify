@@ -5,7 +5,6 @@ import {
 import {
     PlayIcon
 } from '@heroicons/react/solid'
-import $ from 'jquery'
 
 import DefaultContext from '../context.js'
 import AOS from 'aos';
