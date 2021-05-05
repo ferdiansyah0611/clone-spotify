@@ -251,7 +251,7 @@ class Template extends React.Component {
     }
     async componentDidMount() {
         document.title = 'Clone Spotify'
-        document.body.classList.add('bg-gray-800', 'overflow-auto')
+        document.body.classList.add('overflow-auto')
         document.body.classList.remove('overflow-hidden')
         /*$('#sidebar').css({ width: 240 , marginLeft: '-100%'})*/
         $('#container').css({ marginLeft: 240 })
@@ -470,7 +470,7 @@ class Template extends React.Component {
               </li>
             </ul>
           </section>
-          <section id="player" className="bg-gray-700 fixed bottom-0 left-0 w-full z-30 sm:z-40 text-white shadow-2xl">
+          <section id="player" className="fixed bottom-0 left-0 w-full z-30 sm:z-40 text-white shadow-2xl">
             <svg style={{marginTop: '-100%'}} id="close-queue" onClick={this.showMusic} data-action="close" xmlns="http://www.w3.org/2000/svg" className="h-12 invisible cursor-pointer w-full fixed top-0 left-0 bg-black bg-opacity-50 z-50" viewBox="0 0 20 20" fill="currentColor">
               <path data-action="close" fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
@@ -511,7 +511,7 @@ class Template extends React.Component {
             {
               this.state.imgMusic ? <img onClick={this.showMusic} data-action="open" style={{zIndex: 60}} id="music-spin" className="absolute bottom-0 left-0 cursor-pointer rounded-full w-20 mb-14 ml-2 border-gray-200 border-2" src={this.state.imgMusic} alt=""/> :''
             }
-            <div className="flex flex z-50 fixed left-0 bottom-0 w-full bg-gray-700">
+            <div className="flex flex z-50 fixed left-0 bottom-0 w-full shadow-xl border border-l-0 border-r-0 border-b-0 border-gray-700" style={{background: '#121212'}}>
               <div className="sm:w-1/3"></div>
               <div className="sm:w-1/3 mx-auto block mb-1 text-center">
               <marquee onClick={this.showMusic} data-action="open" className="w-3/4 cursor-pointer" behavior="" direction="left">{this.state.nameMusic}</marquee>
