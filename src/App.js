@@ -272,26 +272,33 @@ class Template extends React.Component {
     {
       if(e.target.dataset.action === 'open'){
         document.body.classList.add('overflow-hidden')
-        $('#player').removeClass('sm:z-50').addClass('z-50')
-        $('#player').animate({
+        $('#player').removeClass('sm:z-50').addClass('z-60')
+        /*$('#player').animate({
           marginBottom: '0',
           height: '100vh',
-        }, 800)
-        $('#queue').addClass('block').removeClass('hidden')
-        $('#close-queue').removeClass('hidden').addClass('w-full fixed top-0 left-0 bg-black bg-opacity-50')
+        }, 800)*/
+        $('#queue').removeClass('invisible')
+        $('#queue').animate({
+          marginBottom: 90,
+          height: '86.9vh',
+        }, 900)
+        $('#close-queue').removeClass('invisible')
+        $('#close-queue').animate({
+          marginTop: '0',
+        }, 900)
       }
       if(e.target.dataset.action === 'close'){
         document.body.classList.remove('overflow-hidden')
         document.body.classList.add('overflow-auto')
-        $('#player').animate({
-          marginBottom: '0',
-          height: '90px',
-        }, 800)
-        $('#player').removeClass('z-50').addClass('sm:z-50')
-        setTimeout(() => {
-          $('#queue').addClass('hidden').removeClass('block')
-          $('#close-queue').addClass('hidden')
-        },700)
+        $('#queue').animate({
+          marginBottom: '-100%',
+          height: '0',
+        }, 900)
+        // $('#queue').addClass('invisible')
+        $('#close-queue').animate({
+          marginTop: '-100%',
+        }, 900)
+        // $('#close-queue').addClass('invisible')
       }
     }
     changeSecondMusic(e) {
@@ -343,11 +350,10 @@ class Template extends React.Component {
             music.pause()
             music.currentTime = 0
             this.setState({ statusPlay: false, timeStart: 0, process: 0 })
-            music = ''
             clearInterval(interval)
         }
-        /*console.log(this.state.keyMusic)*/
-        if(!this.state.keyMusic === 0 && this.state.keyMusic === this.state.listMusic.length)
+        console.log(this.state.keyMusic)
+        if(this.state.keyMusic !== 0 && this.state.keyMusic !== this.state.listMusic.length)
         {
           this.state.playMusic({}, --this.state.keyMusic)
 
@@ -395,7 +401,7 @@ class Template extends React.Component {
         return (
             <Router>
         <DefaultContext.Provider value={this.state}>
-          <nav id="navbar" className="bg-black w-full top-0 left-0 fixed pr-5 pl-5 pt-2 pb-2 z-50 shadow-2xl" style={{marginLeft: 240}}>
+          <nav id="navbar" className="bg-black w-full top-0 left-0 fixed pr-5 pl-5 pt-2 pb-2 z-60 shadow-2xl" style={{marginLeft: 240}}>
             <div className="flex float-left">
               <span onClick={this.menu} className="mr-1 p-2 text-white font-bold block sm:hidden cursor-pointer">
                 <MenuIcon className="h-6" />
@@ -434,7 +440,7 @@ class Template extends React.Component {
               <Link to="/login" className={this.state.search ? "hidden md:block mr-1 pl-7 pr-7 pt-2 pb-2 text-black font-bold bg-white rounded-xl" : "mr-1 pl-7 pr-7 pt-2 pb-2 text-black font-bold bg-white rounded-xl"}>Login</Link>
             </div>
           </nav>
-          <section id="sidebar" className="open bg-black h-full fixed left-0 top-0 mt-14 sm:mt-0 text-white p-3 sm:block transition-all duration-700 z-50 shadow-2xl">
+          <section id="sidebar" className="open bg-black h-full fixed left-0 top-0 mt-14 sm:mt-0 text-white p-3 sm:block transition-all duration-700 z-40 shadow-2xl">
             <h1 className="text-center font-bold pb-5 pt-5">Clone Spotify <br/><a href="https://github.com/ferdiansyah0611" target="_blank" rel="noreferrer" className="underline">by Ferdiansyah</a></h1>
             <ul>
               <li className="flex">
@@ -464,11 +470,11 @@ class Template extends React.Component {
               </li>
             </ul>
           </section>
-          <section id="player" className="bg-gray-700 fixed bottom-0 left-0 w-full z-30 sm:z-50 text-white shadow-2xl">
-            <svg id="close-queue" onClick={this.showMusic} data-action="close" xmlns="http://www.w3.org/2000/svg" className="h-12 hidden cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+          <section id="player" className="bg-gray-700 fixed bottom-0 left-0 w-full z-30 sm:z-40 text-white shadow-2xl">
+            <svg style={{marginTop: '-100%'}} id="close-queue" onClick={this.showMusic} data-action="close" xmlns="http://www.w3.org/2000/svg" className="h-12 invisible cursor-pointer w-full fixed top-0 left-0 bg-black bg-opacity-50 z-50" viewBox="0 0 20 20" fill="currentColor">
               <path data-action="close" fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
-            <ul className="hidden w-full bg-black overflow-auto pt-28 pb-10" style={{height: '86.8vh'}} id="queue">
+            <ul className="invisible w-full bg-black overflow-auto pt-28 pb-10 fixed left-0 bottom-0 z-30" style={{marginBottom: '-100%', height: 0}} id="queue">
             {
               this.state.listMusic.map((data, key) => {
                 var name        = data.track ? data.track.artists.map((art, key) => art.name).join(' & ') + " - " + data.track.name: data.artists.map((art, key) => art.name).join(' & ') + " - " + data.name
@@ -476,9 +482,21 @@ class Template extends React.Component {
                 var trackUrl    = data.track ? data.track.preview_url: data.preview_url
                 return(
                   <li key={key} className={classActive}>
-                      <span className="w-1/4 rounded-sm p-2 play-icon cursor-pointer" onClick={this.playMusic} data-url={trackUrl} data-name={name}>
+                      <span className="w-1/4 rounded-sm p-2 play-icon cursor-pointer" onClick={this.state.statusPlay ? this.pauseMusic: this.playNow} data-url={trackUrl} data-name={name}>
                       {
-                        this.state.nameMusic === name ? <PauseIcon data-url={trackUrl} data-name={name} className="h-10" /> : <PlayIcon data-url={trackUrl} data-name={name} className="h-10" />
+                        this.state.nameMusic === name ?
+                          this.state.statusPlay ?
+                            <svg data-url={trackUrl} data-name={name} xmlns="http://www.w3.org/2000/svg" className="h-10" viewBox="0 0 20 20" fill="currentColor">{/*pauseicon*/}
+                              <path data-url={trackUrl} data-name={name} fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                            </svg>
+                          :
+                            <svg data-url={trackUrl} data-name={name} xmlns="http://www.w3.org/2000/svg" className="h-10" viewBox="0 0 20 20" fill="currentColor">{/*playicon*/}
+                              <path data-url={trackUrl} data-name={name} fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                            </svg>
+                        :
+                          <svg data-url={trackUrl} data-name={name} xmlns="http://www.w3.org/2000/svg" className="h-10" viewBox="0 0 20 20" fill="currentColor">{/*playicon*/}
+                            <path data-url={trackUrl} data-name={name} fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                          </svg>
                       }
                       </span>
                       <p className="w-2/4 font-bold text-sm p-2" dangerouslySetInnerHTML={{__html: name}}/>
@@ -491,12 +509,12 @@ class Template extends React.Component {
             }
             </ul>
             {
-              this.state.imgMusic ? <img onClick={this.showMusic} data-action="open" id="music-spin" className="absolute bottom-0 left-0 z-50 rounded-full w-20 mb-14 ml-2 border-gray-200 border-2" src={this.state.imgMusic} alt=""/> :''
+              this.state.imgMusic ? <img onClick={this.showMusic} data-action="open" style={{zIndex: 60}} id="music-spin" className="absolute bottom-0 left-0 cursor-pointer rounded-full w-20 mb-14 ml-2 border-gray-200 border-2" src={this.state.imgMusic} alt=""/> :''
             }
-            <div className="flex">
+            <div className="flex flex z-50 fixed left-0 bottom-0 w-full bg-gray-700">
               <div className="sm:w-1/3"></div>
               <div className="sm:w-1/3 mx-auto block mb-1 text-center">
-              <marquee onClick={this.showMusic} data-action="open" className="w-3/4" behavior="" direction="left">{this.state.nameMusic}</marquee>
+              <marquee onClick={this.showMusic} data-action="open" className="w-3/4 cursor-pointer" behavior="" direction="left">{this.state.nameMusic}</marquee>
                 <div className="justify-center flex">
                   <span className="cursor-pointer" onClick={this.previousMusic}>
                     <span>
