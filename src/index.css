@@ -7,6 +7,10 @@
 	margin-left: -100%;
 }
 
+.z-60{
+  z-index: 60 !important;
+}
+
 .scrollleft-hidden::-webkit-scrollbar{
 	display: none;
 }
