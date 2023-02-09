@@ -1,0 +1,178 @@
+@tailwind base
+@tailwind components
+@tailwind utilities
+
+$sidebar-w: 240px
+$layout-h: calc(100vh - 10em)
+// preset
+body
+	@apply bg-zinc-900
+	color-scheme: dark
+progress::-webkit-progress-value
+	background-color: white
+input[type="range"]
+	-webkit-appearance: none
+	outline: none
+	transition: opacity .2s
+	border-radius: 20px
+	height: 10px
+	width: 100%
+	background: white
+input[type="range"]::-webkit-slider-thumb
+	-webkit-appearance: none
+	width: 25px
+	height: 25px
+	border-radius: 50%
+	cursor: pointer
+	background: #34D399
+input[type="range"]::-moz-slidngeer-thumb
+	width: 25px
+	height: 25px
+	border-radius: 50%
+	cursor: pointer
+	background: #34D399
+// component css
+.title
+	@apply font-bold text-2xl
+.head-section
+	@apply flex items-end
+	> div
+		@apply flex-1
+	h3
+		@apply flex-1
+	a, button
+		@apply text-opacity-70 text-gray-300 hover:underline
+	p
+		@apply font-light text-opacity-70 text-gray-200
+.grid-music
+	@apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 mt-2
+.info
+	@apply mt-2 bg-zinc-700 flex
+	> div
+		@apply p-2
+	img
+		@apply w-24
+	p.followers
+		@apply font-light text-sm sm:text-base text-green-500
+	p.description
+		@apply font-light text-sm sm:text-base text-opacity-70 text-zinc-200
+.paginate
+	@apply flex items-center justify-center mt-10 space-x-2
+	button
+		@apply p-2 bg-green-500 hover:bg-green-600 rounded-full
+		@apply transition duration-500
+		&:disabled
+			@apply bg-zinc-800
+.box-empty
+	@apply flex justify-center items-center
+	height: calc($layout-h - 5em)
+	p
+		@apply font-bold text-2xl text-zinc-500 uppercase
+// layout
+@media (max-width: theme('screens.sm'))
+	#sidebar
+		@apply fixed
+		z-index: 10
+	#container
+		width: 100%
+	#layer
+		@apply bg-zinc-900/50 fixed w-full h-screen cursor-pointer
+		z-index: 9
+#layout
+	@apply flex
+	#container
+		@apply flex-1 text-white
+		width: calc(100vw - $sidebar-w)
+		#router-body
+			@apply overflow-auto px-4 py-4 md:px-8 md:py-10
+			height: $layout-h
+#navbar
+	@apply bg-black w-full shadow-2xl
+	.action
+		@apply flex-1 flex space-x-2 text-white
+		input
+			@apply focus:outline-none w-full focus:ring focus:ring-green-400 p-2 rounded-md bg-zinc-900
+		button
+			@apply hover:bg-zinc-900 rounded-full transition duration-500
+		button.switcher
+			@apply p-2 hidden md:block
+#sidebar
+	@apply bg-black text-white py-10 pt-0 overflow-auto border-r border-zinc-800
+	width: $sidebar-w
+	height: calc($layout-h + 3.5em)
+	transition: 1s all
+	margin-left: -$sidebar-w
+	&.open
+		margin-left: 0px
+	ul
+		@apply p-2
+		li
+			@apply mt-1
+		li a
+			@apply flex items-center w-full p-2 rounded-md text-zinc-400
+			@apply transition duration-500
+			&.active
+				@apply font-bold bg-zinc-900 text-white
+			&:hover
+				@apply bg-zinc-900 text-white
+#player
+	@apply border-t border-zinc-700 text-white fixed w-full
+	z-index: 10
+	#albums
+		@apply fixed w-full bg-zinc-800 overflow-auto
+		transition: 0.7s all
+		z-index: 9
+		height: calc($layout-h + 3.5em)
+		top: -100%
+		button
+			@apply p-2 hover:bg-zinc-900 rounded-full transition duration-300
+		.close-action
+			@apply flex justify-center sticky top-0 bg-zinc-800/70
+		&.open
+			top: 0px
+	.action
+		@apply flex
+		> div
+			@apply flex-1
+			&:nth-child(2)
+				button
+					@apply p-1 bg-zinc-800 rounded-full hover:bg-zinc-700/80
+				div
+					@apply flex items-center justify-center gap-2
+// component
+.item-albums
+	@apply flex items-center gap-2 md:gap-4 p-2 transition duration-300 cursor-pointer
+	&.active
+		button
+			@apply bg-green-500
+	&:hover, &.active
+		@apply bg-zinc-700
+	button
+		@apply rounded-full p-2 transition duration-300 hover:bg-green-500 #{!important}
+.item-music:hover .play-icon
+	display: block
+// page
+#search
+	.tabs
+		@apply flex mb-4 rounded-xl bg-zinc-800 shadow-xl
+		button
+			@apply flex-1 p-3 font-bold text-zinc-200 text-opacity-70 cursor-pointer
+			&.active, &:hover
+				@apply text-white text-opacity-100
+// scroll
+.scrollleft-hidden::-webkit-scrollbar
+	display: none
+.scrollleft-hidden
+	-ms-overflow-style: none
+	scrollbar-width: none
+.scrollleft-hidden > div
+	width: 2100px
+// animation
+@media (prefers-reduced-motion: no-preference)
+	.music-spin
+		animation: music-spin infinite 3s linear
+@keyframes music-spin
+	from
+		transform: rotate(0deg)
+	to
+		transform: rotate(360deg)
