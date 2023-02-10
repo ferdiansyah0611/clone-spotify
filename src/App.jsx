@@ -77,7 +77,7 @@ function App() {
         albums = await spotify.getPlaylistItem(data.id);
         albums.items = albums.items.map((value) => value.track)
         if (albums.items.length) {
-          active = albums.items.filter(v => v && v.preview_url)[0];
+          active = albums.items.find(v => v && v.preview_url);
         }
       }
     }
@@ -99,9 +99,25 @@ function App() {
       }
     });
     audio.addEventListener("ended", (e) => {
+      let index = -1;
+      let next = albums.items.find((v, i) => {
+        if (v && v.preview_url) {
+          if (v.id === active.id) {
+            index = i;
+            return false
+          }
+          if (index >= 0) {
+            return true
+          }
+        }
+        return false
+      });
       document.title = "Spotify";
       audio.remove();
       app.updateStatusMusic(false);
+      if (next) {
+        playHandlers(next, albums.items ? (() => albums.items): undefined)
+      }
     });
     audio.addEventListener("timeupdate", (track) => {
       let value = Math.floor(track.target.currentTime) * 1000;

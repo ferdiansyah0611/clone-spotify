@@ -60,7 +60,7 @@ export default function Player({ togglePausePlay, changeDuration, playHandlers }
 							style={{ zIndex: 60 }}
 							className={
 								(music.isPlaying ? "music-spin " : "") +
-								"absolute bottom-0 left-0 cursor-pointer rounded-full w-20 mb-14 ml-2 border-gray-200 border-2"
+								"absolute bottom-0 left-6 cursor-pointer rounded-full w-20 mb-14 border-gray-200 border-2"
 							}
 							src={music.active.album.images[0].url}
 							alt=""
