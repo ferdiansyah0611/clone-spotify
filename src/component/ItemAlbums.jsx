@@ -3,7 +3,7 @@ import { PlayIcon, PauseIcon, EllipsisHorizontalIcon } from "@heroicons/react/20
 import { shallow } from "zustand/shallow";
 import useApp from "../store/useApp";
 
-export default function ItemAlbums({ title, playHandlers, data }) {
+export default function ItemAlbums({ title, playHandlers, data, tracks }) {
 	const { musicId, musicAlbumId, isPlaying } = useApp(
 		(state) => ({
 			musicId: state.music.active?.id,
@@ -21,7 +21,7 @@ export default function ItemAlbums({ title, playHandlers, data }) {
 	return (
 		<div className={(isActivePlay ? 'active ': '') + "item-albums"}>
 			<div>
-				<button onClick={() => playHandlers(data)}>
+				<button onClick={() => playHandlers(data, tracks)}>
 					{isActivePlay ? <PauseIcon className="h-6" /> : <PlayIcon className="h-6" />}
 				</button>
 			</div>

@@ -56,8 +56,7 @@ function App() {
       main();
     }
   }, [container.current]);
-  const playHandlers = useCallback(async (data) => {
-    // console.log(data);
+  const playHandlers = useCallback(async (data, tracks) => {
     let albums = {
         items: [],
       },
@@ -69,21 +68,25 @@ function App() {
     if (!data.preview_url) {
       if (data.type === 'album') {
         albums = await spotify.getAlbumTrack(data.id);
-        album = await spotify.getAlbum(data.id)
         if (albums.items.length) {
           active = albums.items[0];
-          active.album = album
+          active.album = data
         }
       }
       if (data.type === 'playlist') {
         albums = await spotify.getPlaylistItem(data.id);
         albums.items = albums.items.map((value) => value.track)
         if (albums.items.length) {
-          active = albums.items.filter(v => v.preview_url)[0];
+          active = albums.items.filter(v => v && v.preview_url)[0];
         }
       }
     }
-    // console.log(active);
+    else {
+      if (tracks) {
+        albums = {}
+        albums.items = tracks();
+      }
+    }
     let audio = await new Audio(active.preview_url);
     audio.load();
     audio.addEventListener("play", (e) => {

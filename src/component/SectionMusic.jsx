@@ -42,7 +42,7 @@ export default function SectionMusic({ title, description, data, isMusic, isTrac
 					) : (
 						<div className="mt-2">
 							{data.items.map((item, i) => (
-								<ItemAlbums key={item.id} title={item.name} {...{ data: item, playHandlers }} />
+								<ItemAlbums key={item.id} title={item.name} tracks={() => data.items} {...{ data: item, playHandlers }} />
 							))}
 						</div>
 					)}
