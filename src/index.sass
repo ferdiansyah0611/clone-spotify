@@ -88,7 +88,7 @@ input[type="range"]::-moz-slidngeer-thumb
 		width: calc(100vw - $sidebar-w)
 		#router-body
 			@apply overflow-auto px-4 py-4 md:px-8 md:py-10
-			height: $layout-h
+			// height: $layout-h
 #navbar
 	@apply bg-black w-full shadow-2xl
 	.action
@@ -102,7 +102,7 @@ input[type="range"]::-moz-slidngeer-thumb
 #sidebar
 	@apply bg-black text-white py-10 pt-0 overflow-auto border-r border-zinc-800
 	width: $sidebar-w
-	height: calc($layout-h + 3.5em)
+	// height: calc($layout-h + 3.5em)
 	transition: 1s all
 	margin-left: -$sidebar-w
 	&.open
@@ -119,7 +119,7 @@ input[type="range"]::-moz-slidngeer-thumb
 			&:hover
 				@apply bg-zinc-900 text-white
 #player
-	@apply border-t border-zinc-700 text-white fixed w-full bottom-0
+	@apply border-t border-zinc-700 text-white fixed w-full bottom-0 bg-zinc-900
 	z-index: 10
 	#albums
 		@apply fixed w-full bg-zinc-800 overflow-auto

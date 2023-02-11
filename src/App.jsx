@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import {
   HomeIcon,
@@ -149,14 +149,17 @@ function App() {
   const changeDuration = useCallback((e) => {
     music.audio.currentTime = e.target.value / 1000;
   }, []);
+  const heightWindow = useMemo(() => {
+    return `calc(${window.innerHeight}px - 9.5em)`
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
         <div id="layout">
-          <Sidebar />
+          <Sidebar {...{heightWindow}} />
           <div ref={container} id="container">
             <Navbar />
-            <div id="router-body">
+            <div style={{height: heightWindow}} id="router-body">
               <Routes>
                 <Route path="/" element={<Home {...{ playHandlers }} />} />
                 <Route path="/search" element={<Search {...{ playHandlers }} />} />

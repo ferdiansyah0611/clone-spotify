@@ -1,17 +1,17 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Link, NavLink } from "react-router-dom";
 import { HomeIcon, MagnifyingGlassIcon, ListBulletIcon, PlusIcon, HeartIcon } from "@heroicons/react/24/solid";
 import { shallow } from "zustand/shallow";
 import useApp from '../store/useApp';
 
-function Sidebar() {
+function Sidebar({ heightWindow }) {
 	const { openSidebar, toggleOpen } = useApp((state) => ({openSidebar: state.open.sidebar, toggleOpen: state.toggleOpen}), shallow)
 	const openMe = useCallback(() => {
 		window.open('http://ferdiansyah.web.app')
 	}, []);
 	return (
 		<>
-			<div id="sidebar" className={openSidebar ? 'open': ''}>
+			<div id="sidebar" style={{height: heightWindow.replace(')', ' + 3.5em)')}} className={openSidebar ? 'open': ''}>
 				<div className="border-b border-zinc-800">
 					<h1 onClick={openMe} className="p-4 font-bold cursor-pointer">Spotify by Ferdi</h1>
 				</div>
