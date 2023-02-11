@@ -2,12 +2,15 @@
 @tailwind components
 @tailwind utilities
 
+@import "./style/auth.sass"
+
 $sidebar-w: 240px
 $layout-h: calc(100vh - 10em)
 // preset
 body
 	@apply bg-zinc-900
 	color-scheme: dark
+	font-family: 'Inter', sans-serif
 progress::-webkit-progress-value
 	background-color: white
 input[type="range"]
@@ -149,8 +152,13 @@ input[type="range"]::-moz-slidngeer-thumb
 		@apply bg-zinc-700
 	button
 		@apply rounded-full p-2 transition duration-300 hover:bg-green-500 #{!important}
-.item-music:hover .play-icon
-	display: block
+.item-music
+	.action
+		@apply relative
+	&:hover .action span
+		@apply bg-zinc-900/50
+	&:hover .play-icon
+		display: block
 // page
 #search
 	.tabs

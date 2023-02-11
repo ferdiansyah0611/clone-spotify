@@ -17,10 +17,10 @@ class Spotify {
             base: "https://api.spotify.com/v1",
         };
     }
-    async fetch(url) {
+    async fetch(url, customUrl) {
         let token = await this.checkToken();
         if (token) {
-            return await fetch(this.state.base + url, {
+            return await fetch(customUrl ? customUrl: (this.state.base + url), {
                 headers: {
                     Authorization: token,
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -129,7 +129,7 @@ class Spotify {
         return this.fetch(`/artists/${id}/top-tracks?market=ID`);
     }
     custom(url) {
-        return this.fetch(url);
+        return this.fetch(null, url);
     }
 }
 

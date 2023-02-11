@@ -56,22 +56,26 @@ export default function ItemMusic({ to, title, isMusic, playHandlers, data, desc
 			onClick={go}
 			className={
 				(isMusic ? "item-music " : "") +
-				"transition duration-500 bg-zinc-700/40 hover:bg-zinc-700 cursor-pointer p-2 rounded-md relative"
+				"transition duration-500 bg-zinc-700/40 hover:bg-zinc-700 cursor-pointer p-2 rounded-md flex flex-col"
 			}
 		>
-			<img src={source} className="w-full rounded-sm shadow-lg" alt="" />
-			{isMusic ? (
-				<span
-					onClick={() => playHandlers(data)}
-					className="rounded-sm float-right absolute -mt-14 hidden p-2 play-icon cursor-pointer"
-				>
-					{isActivePlay ? <PauseIcon className="h-10" /> : <PlayIcon className="h-10" />}
-				</span>
-			) : (
-				false
-			)}
-			<h5 className="font-bold text-sm mt-1">{title}</h5>
-			{description ? <p className="font-sm font-light">{description}</p> : false}
+			<div className="action">
+				<img src={source} className="w-full rounded-sm shadow-lg" alt="" />
+				{isMusic ? (
+					<span
+						onClick={() => playHandlers(data)}
+						className="rounded-sm absolute bottom-2 left-2 hidden p-2 play-icon cursor-pointer rounded-full"
+					>
+						{isActivePlay ? <PauseIcon className="h-8" /> : <PlayIcon className="h-8" />}
+					</span>
+				) : (
+					false
+				)}
+			</div>
+			<div className="flex items-center flex-1">
+				<h5 className="font-bold text-sm mt-1">{title}</h5>
+				{description ? <p className="font-sm font-light">{description}</p> : false}
+			</div>
 		</a>
 	);
 }

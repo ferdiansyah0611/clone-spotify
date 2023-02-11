@@ -1,0 +1,30 @@
+.auth
+	min-width: 400px
+	h3
+		@apply text-center font-bold mb-4 text-xl
+	label
+		@apply text-zinc-200 mb-1
+	.input
+		@apply w-full text-white p-2 focus:outline-none focus:ring focus:ring-green-400
+	.api
+		@apply flex flex-col gap-5
+		a
+			@apply p-4 font-bold
+	.divider-or
+		@apply flex space-x-2 items-center mt-5
+		span
+			@apply bg-zinc-600 flex-1
+			height: 1px
+	.btn-facebook
+		@apply rounded-2xl bg-blue-900 hover:bg-blue-800 text-white
+	.btn-apple
+		@apply rounded-2xl bg-black hover:bg-zinc-800 text-white
+	.btn-google
+		@apply rounded-2xl bg-white hover:bg-zinc-200 text-black
+	.btn-signup
+		@apply rounded-2xl bg-white hover:bg-zinc-200 text-black
+		@apply p-4 font-bold
+	.btn-submit
+		@apply rounded-2xl bg-green-400 font-bold focus:outline-none focus:ring focus:ring-green-600
+		@apply mt-4 sm:mt-0
+		@apply p-4 text-white
