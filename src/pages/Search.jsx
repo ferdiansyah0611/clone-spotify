@@ -98,6 +98,7 @@ export default function Search({ playHandlers }) {
 								description="Result of Albums"
 								data={state.albums}
 								isMusic={true}
+								margin={true}
 								path="/browse/albums/"
 								handlers={(data) => dispatch({ type: "setAlbums", data })}
 								{...{ playHandlers }}

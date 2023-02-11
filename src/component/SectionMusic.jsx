@@ -5,10 +5,10 @@ import ItemAlbums from "./ItemAlbums";
 import spotify from "../service/spotify";
 import usePaginate from "../hook/usePaginate";
 
-export default function SectionMusic({ title, description, data, isMusic, isTrack, path, playHandlers, handlers }) {
+export default function SectionMusic({ title, description, data, isMusic, isTrack, path, playHandlers, handlers, margin }) {
 	const [nextData, previousData] = usePaginate({ data, handlers });
 	return (
-		<section>
+		<section className={margin ? "my-5 mt-0": "my-5"}>
 			{title ?
 				<div className="head-section">
 					<div>

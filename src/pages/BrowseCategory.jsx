@@ -49,6 +49,7 @@ export default function BrowseCategory({playHandlers}){
 				description="List of categories"
 				data={state.playlists}
 				isMusic={true}
+				margin={true}
 				path="/playlist/"
 				handlers={(data) => dispatch({ type: "setPlaylists", data })}
 				{...{ playHandlers }}

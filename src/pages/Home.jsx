@@ -70,6 +70,7 @@ function Home({ playHandlers }) {
 				isMusic={true}
 				path="/browse/albums/"
 				handlers={(data) => dispatch({ type: "setNewRelease", data })}
+				margin={true}
 				{...{ playHandlers }}
 			/>
 			<SectionMusic
@@ -81,7 +82,7 @@ function Home({ playHandlers }) {
 				handlers={(data) => dispatch({ type: "setBillie", data })}
 				{...{ playHandlers }}
 			/>
-			<section className="mt-2">
+			<section>
 				<div className="head-section">
 					<div>
 						<h3 className="title">Categories</h3>

@@ -5,7 +5,7 @@
 @import "./style/auth.sass"
 
 $sidebar-w: 240px
-$layout-h: calc(100vh - 10em)
+$layout-h: calc(100vh - 9.5em)
 // preset
 body
 	@apply bg-zinc-900
@@ -60,7 +60,7 @@ input[type="range"]::-moz-slidngeer-thumb
 	p.description
 		@apply font-light text-sm sm:text-base text-opacity-70 text-zinc-200
 .paginate
-	@apply flex items-center justify-center mt-10 space-x-2
+	@apply flex items-center justify-center mt-5 space-x-2
 	button
 		@apply p-2 bg-green-500 hover:bg-green-600 rounded-full
 		@apply transition duration-500
@@ -119,7 +119,7 @@ input[type="range"]::-moz-slidngeer-thumb
 			&:hover
 				@apply bg-zinc-900 text-white
 #player
-	@apply border-t border-zinc-700 text-white fixed w-full
+	@apply border-t border-zinc-700 text-white fixed w-full bottom-0
 	z-index: 10
 	#albums
 		@apply fixed w-full bg-zinc-800 overflow-auto

@@ -12,7 +12,7 @@ function Navbar() {
 	useEffect(() => {
 		let handlers = (e) => {
 			if (e.matches) {
-				toggleOpen("sidebar");
+				toggleOpen("sidebar", false);
 			}
 			else {
 				toggleOpen("sidebar", true);
@@ -20,6 +20,9 @@ function Navbar() {
 		};
 		let match = window.matchMedia("(max-width: 640px)");
 		match.addEventListener("change", handlers);
+		handlers({
+			matches: window.innerWidth <= 640
+		})
 		return () => {
 			match.removeEventListener("change", handlers);
 		};

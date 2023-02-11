@@ -44,6 +44,7 @@ export default function BrowseAlbums({ playHandlers }) {
 			data={state.result}
 			isMusic={true}
 			isTrack={true}
+			margin={true}
 			handlers={(data) => dispatch({ type: "setResult", data })}
 			{...{ playHandlers }}
 		/>
