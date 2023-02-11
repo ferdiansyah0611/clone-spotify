@@ -38,6 +38,32 @@ export default function Player({ togglePausePlay, changeDuration, playHandlers }
 		}
 		return "No Play Music";
 	}, [music.active]);
+	const musicImage = useMemo(() => {
+		if (music.active && music.active.album && music.active.album.images.length) {
+			return music.active.album.images[0].url;
+		}
+		return ''
+	}, [music.active]);
+	const navigateMusic = useCallback((isNext) => {
+		if (music.active && music.albums.items) {
+			let index = -1;
+			for(let i = 0; i < music.albums.items.length; i++){
+				let current = music.albums.items[i];
+				if (current && current.id === music.active.id) {
+					index = (isNext ? i + 1: i - 1);
+					break;
+				}
+			}
+			if (index === -1) {
+				return;
+			}
+
+			let musicNew = music.albums.items.find((item, i) => i === index)
+			if (musicNew) {
+				playHandlers(musicNew, music.albums.items.length ? (() => music.albums.items): undefined)
+			}
+		}
+	}, [music.active, music.albums, playHandlers]);
 	return (
 		<div id="player">
 			<div id="albums" className={openAlbums ? "open" : ""}>
@@ -54,7 +80,7 @@ export default function Player({ togglePausePlay, changeDuration, playHandlers }
 			</div>
 			<div className="action">
 				<div>
-					{music.active && music.active.album && music.active.album.images.length ? (
+					{musicImage ? (
 						<img
 							onClick={() => toggleOpen("albums")}
 							style={{ zIndex: 60 }}
@@ -62,7 +88,7 @@ export default function Player({ togglePausePlay, changeDuration, playHandlers }
 								(music.isPlaying ? "music-spin " : "") +
 								"absolute bottom-0 left-6 cursor-pointer rounded-full w-20 mb-14 border-gray-200 border-2"
 							}
-							src={music.active.album.images[0].url}
+							src={musicImage}
 							alt=""
 						/>
 					) : (
@@ -76,13 +102,13 @@ export default function Player({ togglePausePlay, changeDuration, playHandlers }
 						</marquee>
 					</div>
 					<div className="p-1">
-						<button>
+						<button onClick={() => navigateMusic()}>
 							<BackwardIcon className="w-6" />
 						</button>
 						<button onClick={togglePausePlay}>
 							{music.isPlaying ? <PauseIcon className="w-6" /> : <PlayIcon className="w-6" />}
 						</button>
-						<button>
+						<button onClick={() => navigateMusic(true)}>
 							<ForwardIcon className="w-6" />
 						</button>
 					</div>

@@ -20,7 +20,7 @@ class Spotify {
     async fetch(url) {
         let token = await this.checkToken();
         if (token) {
-            return await fetch(url, {
+            return await fetch(this.state.base + url, {
                 headers: {
                     Authorization: token,
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -82,7 +82,7 @@ class Spotify {
             })
             .catch((e) => {
                 // this.getToken()
-                console.log(e);
+                console.error(e);
                 return false;
             });
     }
@@ -96,40 +96,37 @@ class Spotify {
         }
     }
     getNewRelease() {
-        return this.fetch(this.state.base + "/browse/new-releases?limit=10");
+        return this.fetch("/browse/new-releases?limit=10");
     }
     getAllCategory() {
-        return this.fetch(this.state.base + "/browse/categories");
+        return this.fetch("/browse/categories");
     }
     getCategoryPlaylist(id) {
-        return this.fetch(this.state.base + `/browse/categories/${id}/playlists`);
+        return this.fetch(`/browse/categories/${id}/playlists`);
     }
     getCategory(id) {
-        return this.fetch(this.state.base + `/browse/categories/${id}`);
+        return this.fetch(`/browse/categories/${id}`);
     }
     getPlaylistItem(id) {
-        return this.fetch(this.state.base + `/playlists/${id}/tracks`);
+        return this.fetch(`/playlists/${id}/tracks`);
     }
     getPlaylist(id) {
-        return this.fetch(this.state.base + `/playlists/${id}`);
+        return this.fetch(`/playlists/${id}`);
     }
     getSearch(search, type) {
-        return this.fetch(this.state.base + `/search?q=${search}&type=${type}`);
+        return this.fetch(`/search?q=${search}&type=${type}`);
     }
     getAlbum(id) {
-        return this.fetch(this.state.base + `/albums/${id}`);
+        return this.fetch(`/albums/${id}`);
     }
     getAlbumTrack(id) {
-        return this.fetch(this.state.base + `/albums/${id}/tracks`);
-    }
-    getCurrentUser() {
-        return this.fetch(this.state.base + "/me");
+        return this.fetch(`/albums/${id}/tracks`);
     }
     getArtist(id) {
-        return this.fetch(this.state.base + `/artists/${id}`);
+        return this.fetch(`/artists/${id}`);
     }
     getArtistTopTrack(id) {
-        return this.fetch(this.state.base + `/artists/${id}/top-tracks?market=ID`);
+        return this.fetch(`/artists/${id}/top-tracks?market=ID`);
     }
     custom(url) {
         return this.fetch(url);
