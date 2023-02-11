@@ -149,8 +149,18 @@ function App() {
   const changeDuration = useCallback((e) => {
     music.audio.currentTime = e.target.value / 1000;
   }, []);
-  const heightWindow = useMemo(() => {
-    return `calc(${window.innerHeight}px - 9.5em)`
+  // height
+  const [heightWindow, setHeightWindow] = useState('');
+  useEffect(() => {
+    let handlers = () => {
+      setHeightWindow(`calc(${window.innerHeight}px - 9.5em)`)
+    };
+    let match = window.matchMedia("(max-height: 640px)");
+    match.addEventListener("change", handlers);
+    handlers()
+    return () => {
+      match.removeEventListener("change", handlers);
+    };
   }, []);
   return (
     <div className="App">

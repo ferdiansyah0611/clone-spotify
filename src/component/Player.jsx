@@ -158,13 +158,13 @@ function DropdownMusic() {
 					>
 						<Menu.Items className="flex flex-col absolute right-14 -top-40 w-40 shadow-2xl" static>
 							<Menu.Item onClick={toggleAutoPlay}>
-								<a className={(config.autoPlay ? 'bg-zinc-500': 'bg-zinc-700') + " hover:bg-zinc-600 p-2 cursor-pointer"}>Auto Play</a>
+								<a className={(config.autoPlay ? 'bg-zinc-600': 'bg-zinc-800') + " hover:bg-zinc-700 p-2 cursor-pointer"}>Auto Play</a>
 							</Menu.Item>
 							<Menu.Item>
-								<a className="bg-zinc-700 hover:bg-zinc-600 p-2 cursor-pointer">Add to Favorite</a>
+								<a className="bg-zinc-800 hover:bg-zinc-700 p-2 cursor-pointer">Add to Favorite</a>
 							</Menu.Item>
 							<Menu.Item>
-								<a className="bg-zinc-700 hover:bg-zinc-600 p-2 cursor-pointer">Share</a>
+								<a className="bg-zinc-800 hover:bg-zinc-700 p-2 cursor-pointer">Share</a>
 							</Menu.Item>
 						</Menu.Items>
 					</Transition>

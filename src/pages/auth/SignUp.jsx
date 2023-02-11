@@ -71,7 +71,7 @@ export default function SignUp() {
 						</div>
 						<hr className="border-zinc-600 hidden sm:block" />
 						<div className="mt-3">
-							<hr className="border-gray-300 mt-5 mb-5 block sm:hidden" />
+							<hr className="border-zinc-600 mt-5 mb-5 block sm:hidden" />
 							<div className="flex flex-col space-y-2">
 								<h3 className="mb-9 font-bold">Have a account?</h3>
 								<Link

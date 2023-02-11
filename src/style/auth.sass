@@ -1,6 +1,7 @@
 .auth
-	@apply mb-10 md:mb-0
-	min-width: 400px
+	@apply mb-10 md:mb-0 w-full
+	@media (min-width: theme('screens.sm'))
+		max-width: 400px
 	h3
 		@apply text-center font-bold mb-4 text-xl
 	label
