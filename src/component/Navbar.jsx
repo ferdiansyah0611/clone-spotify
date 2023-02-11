@@ -38,7 +38,7 @@ function Navbar() {
 		<nav id="navbar">
 			<div className="flex px-5 py-2">
 				<div className="action">
-					<button className="p-2" onClick={() => toggleOpen("sidebar")}>
+					<button className="p-2 block md:hidden" onClick={() => toggleOpen("sidebar")}>
 						<Bars3Icon className="h-6" />
 					</button>
 					<button onClick={() => to(-1)} className="switcher">

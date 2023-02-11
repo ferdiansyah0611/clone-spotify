@@ -71,7 +71,7 @@ export default function SignIn() {
 									type="submit"
 									className="btn-submit"
 								>
-									Login
+									Sign In
 								</button>
 							</div>
 						</div>

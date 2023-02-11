@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import {
   HomeIcon,
   SearchIcon,
@@ -16,6 +15,7 @@ import {
   PauseIcon,
   DotsHorizontalIcon,
 } from "@heroicons/react/24/solid";
+import { shallow } from "zustand/shallow";
 
 import Navbar from "./component/Navbar";
 import Sidebar from "./component/Sidebar";
@@ -43,7 +43,18 @@ function millisToMinutesAndSeconds(millis) {
 function App() {
   const container = useRef();
   const music = useRef();
-  const app = useApp();
+  const { musicIsPlaying, updateStatusMusic, updateTimerStart, updateTimerEnd, updateMusic, updateMusicAlbums } =
+    useApp(
+      (state) => ({
+        musicIsPlaying: state.music.isPlaying,
+        updateStatusMusic: state.updateStatusMusic,
+        updateTimerStart: state.updateTimerStart,
+        updateTimerEnd: state.updateTimerEnd,
+        updateMusic: state.updateMusic,
+        updateMusicAlbums: state.updateMusicAlbums,
+      }),
+      shallow
+    );
   useEffect(() => {
     async function main() {
       document.title = "Spotify";
@@ -60,30 +71,30 @@ function App() {
     let albums = {
         items: [],
       },
-      active = data, album;
+      active = data,
+      album;
     if (music.audio) {
       music.audio.pause();
       music.audio.remove();
     }
     if (!data.preview_url) {
-      if (data.type === 'album') {
+      if (data.type === "album") {
         albums = await spotify.getAlbumTrack(data.id);
         if (albums.items.length) {
           active = albums.items[0];
-          active.album = data
+          active.album = data;
         }
       }
-      if (data.type === 'playlist') {
+      if (data.type === "playlist") {
         albums = await spotify.getPlaylistItem(data.id);
-        albums.items = albums.items.map((value) => value.track)
+        albums.items = albums.items.map((value) => value.track);
         if (albums.items.length) {
-          active = albums.items.find(v => v && v.preview_url);
+          active = albums.items.find((v) => v && v.preview_url);
         }
       }
-    }
-    else {
+    } else {
       if (tracks) {
-        albums = {}
+        albums = {};
         albums.items = tracks();
       }
     }
@@ -91,11 +102,11 @@ function App() {
     audio.load();
     audio.addEventListener("play", (e) => {
       document.title = active.name;
-      app.updateTimerEnd(millisToMinutesAndSeconds(active.duration_ms));
+      updateTimerEnd(millisToMinutesAndSeconds(active.duration_ms));
       if (albums.items.length) {
-        app.updateMusicAlbums({ active, albums, isPlaying: true });
+        updateMusicAlbums({ active, albums, isPlaying: true });
       } else {
-        app.updateMusic({ active, isPlaying: true });
+        updateMusic({ active, isPlaying: true });
       }
     });
     audio.addEventListener("ended", (e) => {
@@ -104,37 +115,37 @@ function App() {
         if (v && v.preview_url) {
           if (v.id === active.id) {
             index = i;
-            return false
+            return false;
           }
           if (index >= 0) {
-            return true
+            return true;
           }
         }
-        return false
+        return false;
       });
       document.title = "Spotify";
       audio.remove();
-      app.updateStatusMusic(false);
+      updateStatusMusic(false);
       if (next) {
-        playHandlers(next, albums.items ? (() => albums.items): undefined)
+        playHandlers(next, albums.items ? () => albums.items : undefined);
       }
     });
     audio.addEventListener("timeupdate", (track) => {
       let value = Math.floor(track.target.currentTime) * 1000;
-      app.updateTimerStart(millisToMinutesAndSeconds(value), { max: active.duration_ms, value });
+      updateTimerStart(millisToMinutesAndSeconds(value), { max: active.duration_ms, value });
     });
     audio.play();
     music.audio = audio;
   }, []);
   const togglePausePlay = useCallback(() => {
-    if (app.music.isPlaying) {
+    if (musicIsPlaying) {
       music.audio.pause();
-      app.updateStatusMusic(false);
+      updateStatusMusic(false);
     } else {
       music.audio.play();
-      app.updateStatusMusic(true);
+      updateStatusMusic(true);
     }
-  }, [music.audio, app.music.isPlaying]);
+  }, [music.audio, musicIsPlaying]);
   const changeDuration = useCallback((e) => {
     music.audio.currentTime = e.target.value / 1000;
   }, []);

@@ -5,16 +5,16 @@ import { ArrowSmallLeftIcon, ArrowSmallRightIcon } from "@heroicons/react/24/sol
 import spotify, { initalResponse } from "../service/spotify";
 import ItemMusic from "../component/ItemMusic";
 import SectionMusic from "../component/SectionMusic";
-import usePaginate from '../hook/usePaginate';
+import usePaginate from "../hook/usePaginate";
 
 function handlers(value, action) {
 	switch (action.type) {
-		case "":
-			return { ...value, ...action.data };
 		case "setCategory":
 			return { ...value, category: action.data.categories };
 		case "setNewRelease":
 			return { ...value, newRelease: action.data.albums };
+		case "setBillie":
+			return { ...value, billie: { ...initalResponse, items: action.data.tracks } };
 		default:
 			return value;
 	}
@@ -23,14 +23,18 @@ function Home({ playHandlers }) {
 	const [state, dispatch] = useReducer(handlers, {
 		newRelease: initalResponse,
 		category: initalResponse,
-		listMusic: [],
+		billie: initalResponse,
 	});
 	const [isPending, startTransition] = useTransition();
 	useEffect(() => {
 		function main() {
-			startTransition(async() => {
-				const [newRelease, category] = await Promise.all([spotify.getNewRelease(), spotify.getAllCategory()]);
-				if (!newRelease.error && !category.error) {
+			startTransition(async () => {
+				const [newRelease, category, billie] = await Promise.all([
+					spotify.getNewRelease(),
+					spotify.getAllCategory(),
+					spotify.getArtistTopTrack("6qqNVTkY8uBg9cP3Jd7DAH"),
+				]);
+				if (!newRelease.error && !category.error && !billie.error) {
 					dispatch({
 						type: "setNewRelease",
 						data: newRelease,
@@ -39,8 +43,12 @@ function Home({ playHandlers }) {
 						type: "setCategory",
 						data: category,
 					});
+					dispatch({
+						type: "setBillie",
+						data: billie,
+					});
 				}
-			})
+			});
 		}
 		main();
 	}, []);
@@ -51,7 +59,7 @@ function Home({ playHandlers }) {
 	if (isPending) {
 		<div className="box-empty">
 			<p>loading</p>
-		</div>
+		</div>;
 	}
 	return (
 		<div>
@@ -62,6 +70,15 @@ function Home({ playHandlers }) {
 				isMusic={true}
 				path="/browse/albums/"
 				handlers={(data) => dispatch({ type: "setNewRelease", data })}
+				{...{ playHandlers }}
+			/>
+			<SectionMusic
+				title="Billie Eilish"
+				description="The top songs of Billie Eilish"
+				data={state.billie}
+				isMusic={true}
+				isTrack={true}
+				handlers={(data) => dispatch({ type: "setBillie", data })}
 				{...{ playHandlers }}
 			/>
 			<section className="mt-2">
