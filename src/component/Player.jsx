@@ -13,7 +13,7 @@ import { Menu, Transition } from "@headlessui/react";
 import useApp from "../store/useApp";
 import ItemAlbums from "./ItemAlbums";
 
-export default function Player({ togglePausePlay, changeDuration, playHandlers }) {
+export default function Player({ togglePausePlay, changeDuration, playHandlers, heightWindow }) {
 	const { timer, music, toggleOpen, openAlbums } = useApp(
 		(state) => ({
 			timer: state.timer,
@@ -66,7 +66,7 @@ export default function Player({ togglePausePlay, changeDuration, playHandlers }
 	}, [music.active, music.albums, playHandlers]);
 	return (
 		<div id="player">
-			<div id="albums" className={openAlbums ? "open" : ""}>
+			<div style={{height: heightWindow.side}} id="albums" className={openAlbums ? "open" : ""}>
 				<div className="close-action p-2">
 					<button onClick={() => toggleOpen("albums")}>
 						<ChevronDownIcon className="h-8" />

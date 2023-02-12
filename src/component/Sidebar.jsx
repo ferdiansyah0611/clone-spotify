@@ -11,7 +11,7 @@ function Sidebar({ heightWindow }) {
 	}, []);
 	return (
 		<>
-			<div id="sidebar" style={{height: heightWindow.replace(')', ' + 3.5em)')}} className={openSidebar ? 'open': ''}>
+			<div id="sidebar" style={{height: heightWindow.side}} className={openSidebar ? 'open': ''}>
 				<div className="border-b border-zinc-800">
 					<h1 onClick={openMe} className="p-4 font-bold cursor-pointer">Spotify by Ferdi</h1>
 				</div>

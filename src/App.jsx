@@ -150,10 +150,16 @@ function App() {
     music.audio.currentTime = e.target.value / 1000;
   }, []);
   // height
-  const [heightWindow, setHeightWindow] = useState('');
+  const [heightWindow, setHeightWindow] = useState({
+    default: `calc(${window.innerHeight}px - 9.5em)`,
+    side: `calc(${window.innerHeight}px - 9.5em + 3.5em)`,
+  });
   useEffect(() => {
     let handlers = () => {
-      setHeightWindow(`calc(${window.innerHeight}px - 9.5em)`)
+      setHeightWindow({
+        default: `calc(${window.innerHeight}px - 9.5em)`,
+        side: `calc(${window.innerHeight}px - 9.5em + 3.5em)`,
+      })
     };
     let match = window.matchMedia("(max-height: 640px)");
     match.addEventListener("change", handlers);
@@ -169,7 +175,7 @@ function App() {
           <Sidebar {...{heightWindow}} />
           <div ref={container} id="container">
             <Navbar />
-            <div style={{height: heightWindow}} id="router-body">
+            <div style={{height: heightWindow.default}} id="router-body">
               <Routes>
                 <Route path="/" element={<Home {...{ playHandlers }} />} />
                 <Route path="/search" element={<Search {...{ playHandlers }} />} />
@@ -183,7 +189,7 @@ function App() {
             </div>
           </div>
         </div>
-        <Player {...{ togglePausePlay, changeDuration, playHandlers }} />
+        <Player {...{ togglePausePlay, changeDuration, playHandlers, heightWindow }} />
       </BrowserRouter>
     </div>
   );
