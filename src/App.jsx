@@ -161,11 +161,14 @@ function App() {
         side: `calc(${window.innerHeight}px - 9.5em + 3.5em)`,
       })
     };
-    let match = window.matchMedia("(max-height: 640px)");
+    let match = window.matchMedia("(max-height: 640px)"),
+      onfullscreen = window.matchMedia("all and (display-mode: fullscreen")
     match.addEventListener("change", handlers);
+    onfullscreen.addEventListener("change", handlers);
     handlers()
     return () => {
       match.removeEventListener("change", handlers);
+      onfullscreen.removeEventListener("change", handlers);
     };
   }, []);
   return (
